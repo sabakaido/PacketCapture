@@ -77,17 +77,17 @@ int AnalyzeIcmp(u_char *data, int size)
     return(0);
 }
 
-int AnalyzeIcm6(u_char *data, int size)
+int AnalyzeIcmp6(u_char *data, int size)
 {
     u_char *ptr;
     int lest;
-    struct icm6_hdr   *icmp6;
+    struct icmp6_hdr   *icmp6;
 
     ptr  = data;
     lest = size;
 
     if (lest < sizeof(struct icmp6_hdr)) {
-        fprintf(stderr, "lest(%d) <sizeof(struct icm6_hdr)\n", lest);
+        fprintf(stderr, "lest(%d) <sizeof(struct icmp6_hdr)\n", lest);
         return (-1);
     }
     icmp6 = (struct icmp6_hdr *)ptr;
@@ -169,7 +169,7 @@ int AnalyzeIp(u_char *data, int size)
     if (optionLen > 0) {
         if (optionLen >= 1500) {
             fprintf(stderr, "IP optionLen(%d):too big\n", optionLen);
-            rturn (-1);
+            return (-1);
         }
         option = ptr;
         ptr   += optionLen;

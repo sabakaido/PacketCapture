@@ -73,7 +73,7 @@ int main(int argc, char *argv[], char *envp[])
     u_char buf[65535];
 
     if (argc <= 1) {
-        fprint(stderr, "pcap  device-name\n");
+        fprintf(stderr, "pcap  device-name\n");
         return(1);
     }
 

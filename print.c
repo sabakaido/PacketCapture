@@ -36,7 +36,9 @@ char *arp_ip2str(u_int8_t *ip, char *buf, socklen_t size)
 
 char *ip_ip2str(u_int32_t ip, char *buf, socklen_t size)
 {
-    addr =　(struct in_addr *)&ip;
+    struct in_addr *addr;
+
+    addr = (struct in_addr *)&ip;
     inet_ntop(AF_INET, addr, buf, size);
 
     return (buf);
@@ -176,6 +178,7 @@ static char *Proto[] = {
 
 int PrintIpHeader(struct iphdr *iphdr, u_char *option, int optionLen, FILE *fp)
 {
+    int i;
     char buf[80];
 
     fprintf(fp, "ip------------------------------\n");
@@ -210,7 +213,7 @@ int PrintIpHeader(struct iphdr *iphdr, u_char *option, int optionLen, FILE *fp)
     return (0);
 }
 
-int PrintIp6Header(struct ip5_hdr *ip6, FILE *fp)
+int PrintIp6Header(struct ip6_hdr *ip6, FILE *fp)
 {
     char buf[80];
 
@@ -314,7 +317,7 @@ int PrintTcp(struct tcphdr *tcphdr, FILE *fp)
     fprintf(fp, "source=%u,",  ntohs(tcphdr->source));
     fprintf(fp, "dest=%u\n",   ntohs(tcphdr->dest));
     fprintf(fp, "seq=%u\n",    ntohl(tcphdr->seq));
-    fprintf(fp, "ack_seq=%u\n",ntohsl(tcphdr->ack_seq));
+    fprintf(fp, "ack_seq=%u\n",ntohl(tcphdr->ack_seq));
     fprintf(fp, "doff=%u,",    tcphdr->doff);
     fprintf(fp, "urg=%u,",     tcphdr->urg);
     fprintf(fp, "ack=%u,",     tcphdr->ack);
